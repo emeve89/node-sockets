@@ -17,11 +17,9 @@ io.sockets.on('connection', function (socket) {
       console.log(data.message);
     });
 
-    io.sockets.on('connection', function(socket) {
-      socket.on('send_message', function(data) {
-        console.log(data.message);
-        socket.emit('get_message', data);
-      });
+    socket.on('send_message', function(data) {
+      console.log(data.message);
+      socket.broadcast.emit('get_message', data);
     });
 
 });
