@@ -20,6 +20,7 @@ io.sockets.on('connection', function (socket) {
     io.sockets.on('connection', function(socket) {
       socket.on('send_message', function(data) {
         data.message = data.message + ' yo<br/>';
+        console.log(data.message);
         socket.broadcast.emit('get_message', data);
       });
     });
