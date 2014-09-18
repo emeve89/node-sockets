@@ -8,7 +8,7 @@ io.sockets.on('connection', function (socket) {
         console.log('socket disconnected');
     });
 
-    socket.emit('news', { hello: 'world' } );
+    socket.emit('news', { name: 'THIS IS MY NODEJS SERVER' } );
 
     socket.on('my other event', function(data) {
       console.log(data);
