@@ -9,6 +9,6 @@
   "author": "Mario",
   "license": "ISC",
   "dependencies": {
-    "socket.io": "latest"
+    "socket.io": "1.1.0"
   }
 }
