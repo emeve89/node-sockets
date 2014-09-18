@@ -17,6 +17,13 @@ io.sockets.on('connection', function (socket) {
       console.log(data.message);
     });
 
+    io.sockets.on('connection', function(socket) {
+      socket.on('send_message', function(data) {
+        data.message = data.message + ' yo<br/>';
+        socket.broadcast.emit('get_message', data);
+      });
+    });
+
 });
 
 server.listen(process.env.PORT || 5000)
