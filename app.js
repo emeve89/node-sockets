@@ -8,7 +8,15 @@ io.sockets.on('connection', function (socket) {
         console.log('socket disconnected');
     });
 
-    socket.emit('text', 'wow. such event. very real time.');
+    socket.emit('news', { hello: 'world' } );
+
+    socket.on('my other event', function(data) {
+      console.log(data);
+
+      console.log(data.user_id);
+      console.log(data.message);
+    });
+
 });
 
 server.listen(3000, function() {
