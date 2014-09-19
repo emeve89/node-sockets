@@ -2,7 +2,7 @@ var server = require('http').createServer();
 var io = require('socket.io')(server);
 
 io.sockets.on('connection', function (socket) {
-  socket.broadcast.emit('new_user', 'NEW USER');
+  io.sockets.emit('new_user', 'NEW USER');
 
   console.log('socket connected');
 
