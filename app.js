@@ -2,25 +2,27 @@ var server = require('http').createServer();
 var io = require('socket.io')(server);
 
 io.sockets.on('connection', function (socket) {
-    console.log('socket connected');
+  socket.broadcast.emit('new_user', 'NEW USER');
 
-    socket.on('disconnect', function () {
-        console.log('socket disconnected');
-    });
+  console.log('socket connected');
 
-    socket.emit('news', { name: 'THIS IS MY NODEJS SERVER' } );
+  socket.on('disconnect', function () {
+      console.log('socket disconnected');
+  });
 
-    socket.on('my other event', function(data) {
-      console.log(data);
+  socket.emit('news', { name: 'THIS IS MY NODEJS SERVER' } );
 
-      console.log(data.user_id);
-      console.log(data.message);
-    });
+  socket.on('my other event', function(data) {
+    console.log(data);
 
-    socket.on('send_message', function(data) {
-      console.log(data.message);
-      socket.broadcast.emit('get_message', data);
-    });
+    console.log(data.user_id);
+    console.log(data.message);
+  });
+
+  socket.on('send_message', function(data) {
+    console.log(data.message);
+    socket.broadcast.emit('get_message', data);
+  });
 
 });
 
