@@ -14,6 +14,10 @@ io.sockets.on('connection', function (socket) {
     socket.broadcast.to(room).emit('new_user', { message: 'WELCOME ' + socket.id } );
   });
 
+  socket.on('leave', function (room) {
+    socket.leave(room);
+  });
+
   socket.on('disconnect', function () {
     console.log('socket disconnected');
   });
