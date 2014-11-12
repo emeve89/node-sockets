@@ -4,8 +4,8 @@ var port = process.env.PORT || 5000;
 var mongoose = require('mongoose');
 
 
-//mongoose.connect('mongodb://node:123456@dogen.mongohq.com:10049/app29148336');
-mongoose.connect('mongodb://localhost/trade_a_grape_api_development');
+mongoose.connect('mongodb://node:123456@dogen.mongohq.com:10049/app29148336');
+//mongoose.connect('mongodb://localhost/trade_a_grape_api_development');
 
 var MessageSchema = { 
                       trade_id: Number,
