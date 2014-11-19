@@ -9,11 +9,17 @@ mongoose.connect('mongodb://node:123456@dogen.mongohq.com:10049/app29148336');
 //mongoose.connect('mongodb://localhost/trade_a_grape_api_development');
 
 /********** SCHEMA MESSAGE **************/
+
+var Schema = mongoose.Schema,
+    ObjectId = Schema.ObjectId;
+
 var MessageSchema = { 
                       trade_id: Number,
                       user_id:  Number,
-                      content:  String
+                      content:  String,
+                      wine_id: ObjectId
                     }
+
 var Message = mongoose.model('Message', MessageSchema);
 
 
@@ -25,6 +31,12 @@ io.sockets.on('connection', function (socket) {
   /** LOGS **/
     console.log('socket connected');
   /** LOGS **/
+
+
+  socket.on('login_user', function(user_id){
+    console.log('LOGIN_USER '+user_id);
+    return socket.join('user_'+user_id);
+  });
 
 
   socket.on('update_wine_informations', function(user_id){
@@ -61,11 +73,15 @@ io.sockets.on('connection', function (socket) {
 
   socket.on('send_message', function(data){
 
+    console.log('MESSAGE TO: '  + data.user_to.id);
     socket.broadcast.to(joinedRoom).emit('get_message', data);
     socket.emit('update_last_message_client', joinedRoom, data);
     socket.broadcast.to('user_'+ data.user_to.id).emit('update_last_message_client', joinedRoom, data);
+console.log(data.wine_id);
 
-    var message = new Message({ trade_id: joinedRoom, user_id: data.user.id, content: data.message });
+
+    var message = new Message({ trade_id: joinedRoom, user_id: data.user.id, content: data.message, wine_id: data.wine_id });
+
     return message.save(function (err) {
       if (err) console.log('Error');
     });
