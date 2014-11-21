@@ -75,10 +75,11 @@ io.sockets.on('connection', function (socket) {
 
     console.log('MESSAGE TO: '  + data.user_to.id);
     socket.broadcast.to(joinedRoom).emit('get_message', data);
-    socket.emit('update_last_message_client', joinedRoom, data);
-    socket.broadcast.to('user_'+ data.user_to.id).emit('update_last_message_client', joinedRoom, data);
-console.log(data.wine_id);
-console.log('Room' + joinedRoom);
+    
+    if(joinedRoom){
+      socket.emit('update_last_message_client', joinedRoom, data);
+      socket.broadcast.to('user_'+ data.user_to.id).emit('update_last_message_client', joinedRoom, data);
+    }
 
 
     var message = new Message({ trade_id: joinedRoom, user_id: data.user.id, content: data.message, wine_id: data.wine_id });
