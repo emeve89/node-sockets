@@ -78,6 +78,7 @@ io.sockets.on('connection', function (socket) {
     socket.emit('update_last_message_client', joinedRoom, data);
     socket.broadcast.to('user_'+ data.user_to.id).emit('update_last_message_client', joinedRoom, data);
 console.log(data.wine_id);
+console.log('Room' + joinedRoom);
 
 
     var message = new Message({ trade_id: joinedRoom, user_id: data.user.id, content: data.message, wine_id: data.wine_id });
